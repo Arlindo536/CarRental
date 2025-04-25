@@ -4,12 +4,11 @@ const translations = {
         'nav_home': 'Kryefaqja',
         'nav_cars': 'Makinat',
         'nav_locations': 'Lokacionet',
-        'nav_reservation': 'Rezervo',
         'nav_about': 'Rreth Nesh',
         'nav_contact': 'Kontakt',
         'hero_title': 'Makina të Përshtatshme për Çdo Nevojë',
         'hero_subtitle': 'Zgjidhni nga flota jonë e gjerë dhe rezervoni me çmime konkurruese',
-        'hero_button': 'Rezervo Tani',
+        'hero_button': 'Shiko Makinat',
         'cars_title': 'Prezantimi i Makinave',
         'car_filter_all': 'Të gjitha',
         'car_filter_economy': 'Ekonomik',
@@ -21,18 +20,12 @@ const translations = {
         'car_luggage': 'Valixhe',
         'car_features': 'Veçori',
         'car_price_day': '€ / ditë',
-        'car_reserve': 'Rezervo',
+        'contact_us': 'Na Kontaktoni',
+        'call_us': 'Telefono',
+        'whatsapp_us': 'WhatsApp',
+        'email_us': 'Email',
         'locations_title': 'Lokacionet Tona',
         'location_hours': 'Orari',
-        'reservation_title': 'Rezervo Tani',
-        'pickup_location': 'Lokacioni i Marrjes',
-        'pickup_date': 'Data e Marrjes',
-        'pickup_time': 'Ora e Marrjes',
-        'return_date': 'Data e Dorëzimit',
-        'return_time': 'Ora e Dorëzimit',
-        'select_car': 'Zgjidhni Makinën',
-        'select_location': 'Zgjidhni lokacionin',
-        'continue_reservation': 'Vazhdo me Rezervimin',
         'about_title': 'Rreth Nesh',
         'about_history': 'Historia Jonë',
         'about_history_text': 'CarRental është një platformë moderne për marrjen me qira të makinave, e ndërtuar për të ofruar një përvojë të thjeshtë dhe të shpejtë. Ne kemi filluar aktivitetin tonë në vitin 2018 me një flotë të vogël prej 5 makinash dhe tani kemi arritur të zgjerojmë flotën tonë në më shumë se 50 makina.',
@@ -42,6 +35,7 @@ const translations = {
         'contact_title': 'Na Kontaktoni',
         'contact_phone': 'Telefon',
         'contact_email': 'Email',
+        'contact_whatsapp': 'WhatsApp',
         'contact_social': 'Rrjete Sociale',
         'contact_message': 'Na Dërgoni një Mesazh',
         'contact_name': 'Emri',
@@ -49,19 +43,17 @@ const translations = {
         'contact_send': 'Dërgo',
         'footer_copyright': '© 2023 CarRental. Të gjitha të drejtat e rezervuara.',
         'no_cars_found': 'Nuk u gjetën makina që përputhen me kriteret e kërkimit.',
-        'reservation_success': 'Rezervimi juaj u pranua! Do t\'ju kontaktojmë së shpejti për konfirmimin.',
         'message_sent': 'Mesazhi juaj u dërgua! Do t\'ju kontaktojmë së shpejti.'
     },
     'en': { // English
         'nav_home': 'Home',
         'nav_cars': 'Cars',
         'nav_locations': 'Locations',
-        'nav_reservation': 'Reserve',
         'nav_about': 'About Us',
         'nav_contact': 'Contact',
         'hero_title': 'Cars Suitable for Every Need',
         'hero_subtitle': 'Choose from our wide fleet and book at competitive prices',
-        'hero_button': 'Reserve Now',
+        'hero_button': 'View Cars',
         'cars_title': 'Our Cars',
         'car_filter_all': 'All',
         'car_filter_economy': 'Economy',
@@ -73,18 +65,12 @@ const translations = {
         'car_luggage': 'Luggage',
         'car_features': 'Features',
         'car_price_day': '€ / day',
-        'car_reserve': 'Reserve',
+        'contact_us': 'Contact Us',
+        'call_us': 'Call',
+        'whatsapp_us': 'WhatsApp',
+        'email_us': 'Email',
         'locations_title': 'Our Locations',
         'location_hours': 'Hours',
-        'reservation_title': 'Reserve Now',
-        'pickup_location': 'Pickup Location',
-        'pickup_date': 'Pickup Date',
-        'pickup_time': 'Pickup Time',
-        'return_date': 'Return Date',
-        'return_time': 'Return Time',
-        'select_car': 'Select Car',
-        'select_location': 'Select location',
-        'continue_reservation': 'Continue with Reservation',
         'about_title': 'About Us',
         'about_history': 'Our History',
         'about_history_text': 'CarRental is a modern platform for car rental, built to provide a simple and fast experience. We started our activity in 2018 with a small fleet of 5 cars and now we have managed to expand our fleet to more than 50 cars.',
@@ -94,6 +80,7 @@ const translations = {
         'contact_title': 'Contact Us',
         'contact_phone': 'Phone',
         'contact_email': 'Email',
+        'contact_whatsapp': 'WhatsApp',
         'contact_social': 'Social Networks',
         'contact_message': 'Send Us a Message',
         'contact_name': 'Name',
@@ -101,19 +88,17 @@ const translations = {
         'contact_send': 'Send',
         'footer_copyright': '© 2023 CarRental. All rights reserved.',
         'no_cars_found': 'No cars found matching the search criteria.',
-        'reservation_success': 'Your reservation has been accepted! We will contact you soon for confirmation.',
         'message_sent': 'Your message has been sent! We will contact you soon.'
     },
     'de': { // German
         'nav_home': 'Startseite',
         'nav_cars': 'Autos',
         'nav_locations': 'Standorte',
-        'nav_reservation': 'Reservieren',
         'nav_about': 'Über Uns',
         'nav_contact': 'Kontakt',
         'hero_title': 'Fahrzeuge für jeden Bedarf',
         'hero_subtitle': 'Wählen Sie aus unserer großen Flotte und buchen Sie zu wettbewerbsfähigen Preisen',
-        'hero_button': 'Jetzt Reservieren',
+        'hero_button': 'Autos Ansehen',
         'cars_title': 'Unsere Autos',
         'car_filter_all': 'Alle',
         'car_filter_economy': 'Wirtschaft',
@@ -125,18 +110,12 @@ const translations = {
         'car_luggage': 'Gepäck',
         'car_features': 'Funktionen',
         'car_price_day': '€ / Tag',
-        'car_reserve': 'Reservieren',
+        'contact_us': 'Kontaktieren Sie uns',
+        'call_us': 'Anrufen',
+        'whatsapp_us': 'WhatsApp',
+        'email_us': 'Email',
         'locations_title': 'Unsere Standorte',
         'location_hours': 'Öffnungszeiten',
-        'reservation_title': 'Jetzt Reservieren',
-        'pickup_location': 'Abholort',
-        'pickup_date': 'Abholdatum',
-        'pickup_time': 'Abholzeit',
-        'return_date': 'Rückgabedatum',
-        'return_time': 'Rückgabezeit',
-        'select_car': 'Auto Auswählen',
-        'select_location': 'Standort auswählen',
-        'continue_reservation': 'Mit Reservierung Fortfahren',
         'about_title': 'Über Uns',
         'about_history': 'Unsere Geschichte',
         'about_history_text': 'CarRental ist eine moderne Plattform für Autovermietungen, die entwickelt wurde, um ein einfaches und schnelles Erlebnis zu bieten. Wir haben unsere Tätigkeit im Jahr 2018 mit einer kleinen Flotte von 5 Autos begonnen und konnten unsere Flotte mittlerweile auf mehr als 50 Autos erweitern.',
@@ -146,6 +125,7 @@ const translations = {
         'contact_title': 'Kontaktieren Sie Uns',
         'contact_phone': 'Telefon',
         'contact_email': 'E-Mail',
+        'contact_whatsapp': 'WhatsApp',
         'contact_social': 'Soziale Netzwerke',
         'contact_message': 'Senden Sie uns eine Nachricht',
         'contact_name': 'Name',
@@ -153,7 +133,6 @@ const translations = {
         'contact_send': 'Senden',
         'footer_copyright': '© 2023 CarRental. Alle Rechte vorbehalten.',
         'no_cars_found': 'Keine Autos gefunden, die den Suchkriterien entsprechen.',
-        'reservation_success': 'Ihre Reservierung wurde angenommen! Wir werden Sie bald für die Bestätigung kontaktieren.',
         'message_sent': 'Ihre Nachricht wurde gesendet! Wir werden Sie bald kontaktieren.'
     }
 };
@@ -282,7 +261,9 @@ function displayCars(filter = '') {
         const translatedLuggage = translations[currentLanguage]['car_luggage'] || 'Luggage';
         const translatedFeatures = translations[currentLanguage]['car_features'] || 'Features';
         const translatedPriceDay = translations[currentLanguage]['car_price_day'] || '€ / day';
-        const translatedReserve = translations[currentLanguage]['car_reserve'] || 'Reserve';
+        const translatedCall = translations[currentLanguage]['call_us'] || 'Call';
+        const translatedWhatsApp = translations[currentLanguage]['whatsapp_us'] || 'WhatsApp';
+        const translatedEmail = translations[currentLanguage]['email_us'] || 'Email';
         
         // Get translated transmission type
         let transmissionText = car.transmission;
@@ -305,16 +286,14 @@ function displayCars(filter = '') {
                 <p><strong>${translatedLuggage}:</strong> ${car.luggage}</p>
                 <p><strong>${translatedFeatures}:</strong> ${translateFeatures(car.features, currentLanguage)}</p>
                 <p class="car-price">${car.price}${translatedPriceDay}</p>
-                <a href="#reservation" class="btn" data-car-id="${car.id}">${translatedReserve}</a>
+                <div class="contact-buttons">
+                    <a href="tel:${contactInfo.phone}" class="contact-btn phone-btn"><i class="fas fa-phone"></i> ${translatedCall}</a>
+                    <a href="https://wa.me/${contactInfo.whatsapp.replace(/\s+/g, '')}" class="contact-btn whatsapp-btn" target="_blank"><i class="fab fa-whatsapp"></i> ${translatedWhatsApp}</a>
+                    <a href="mailto:${contactInfo.email}?subject=Interes për ${car.name}&body=Përshëndetje, jam i interesuar për makinën ${car.name} me çmim ${car.price}€ / ditë. Ju lutem më kontaktoni për të diskutuar në detaje." class="contact-btn email-btn"><i class="fas fa-envelope"></i> ${translatedEmail}</a>
+                </div>
             </div>
         `;
         carsContainer.appendChild(carElement);
-
-        // Add event listener to reservation button
-        const reserveBtn = carElement.querySelector('.btn');
-        reserveBtn.addEventListener('click', function() {
-            document.getElementById('selected-car').value = car.id;
-        });
     });
 
     // If no cars match the filter
@@ -322,19 +301,6 @@ function displayCars(filter = '') {
         const noResultsMessage = translations[currentLanguage]['no_cars_found'] || 'No cars found matching the search criteria.';
         carsContainer.innerHTML = `<p>${noResultsMessage}</p>`;
     }
-
-    // Populate car options in reservation form
-    const carSelect = document.getElementById('selected-car');
-    const selectCarText = translations[currentLanguage]['select_car'] || 'Select Car';
-    const priceDay = translations[currentLanguage]['car_price_day'] || '€ / day';
-    
-    carSelect.innerHTML = `<option value="">${selectCarText}</option>`;
-    cars.forEach(car => {
-        const option = document.createElement('option');
-        option.value = car.id;
-        option.textContent = `${car.name} (${car.price}${priceDay})`;
-        carSelect.appendChild(option);
-    });
 }
 
 // Helper function to translate car features
@@ -351,7 +317,11 @@ function translateFeatures(features, language) {
             'Sedilje Lëkure': 'Leather Seats',
             'Sensorë Parkimi': 'Parking Sensors',
             '4x4': '4x4',
-            'Kamera 360': '360 Camera'
+            'Kamera 360': '360 Camera',
+            'Android Auto': 'Android Auto',
+            'Autopilot': 'Autopilot',
+            'Kamerat': 'Cameras',
+            'Karikues': 'Charger'
         },
         'de': {
             'Klimë': 'Klimaanlage',
@@ -361,7 +331,11 @@ function translateFeatures(features, language) {
             'Sedilje Lëkure': 'Ledersitze',
             'Sensorë Parkimi': 'Parksensoren',
             '4x4': '4x4',
-            'Kamera 360': '360-Grad-Kamera'
+            'Kamera 360': '360-Grad-Kamera',
+            'Android Auto': 'Android Auto',
+            'Autopilot': 'Autopilot',
+            'Kamerat': 'Kameras',
+            'Karikues': 'Ladegerät'
         }
     };
     

@@ -71,6 +71,79 @@ const cars = [
         price: 90,
         image: 'bmw-x5.jpg',
         features: ['Klimë', 'Navigacion', 'Sedilje Lëkure', 'Kamera 360']
+    },
+    // Additional cars
+    {
+        id: 7,
+        name: 'Audi A4',
+        type: 'luksoz',
+        year: 2022,
+        passengers: 5,
+        transmission: 'Automatike',
+        luggage: 3,
+        price: 70,
+        image: 'audi-a4.jpg',
+        features: ['Klimë', 'Navigacion', 'Sedilje Lëkure', 'Bluetooth']
+    },
+    {
+        id: 8,
+        name: 'Skoda Octavia',
+        type: 'ekonomik',
+        year: 2021,
+        passengers: 5,
+        transmission: 'Automatike',
+        luggage: 3,
+        price: 45,
+        image: 'skoda-octavia.jpg',
+        features: ['Klimë', 'Bluetooth', 'Android Auto']
+    },
+    {
+        id: 9,
+        name: 'Hyundai Tucson',
+        type: 'suv',
+        year: 2023,
+        passengers: 5,
+        transmission: 'Automatike',
+        luggage: 4,
+        price: 60,
+        image: 'hyundai-tucson.jpg',
+        features: ['Klimë', 'Bluetooth', 'Kamera Parkimi', 'Navigacion']
+    },
+    {
+        id: 10,
+        name: 'Renault Clio',
+        type: 'ekonomik',
+        year: 2022,
+        passengers: 5,
+        transmission: 'Manuale',
+        luggage: 2,
+        price: 32,
+        image: 'renault-clio.jpg',
+        features: ['Klimë', 'Bluetooth', 'Sensorë Parkimi']
+    },
+    {
+        id: 11,
+        name: 'Peugeot 3008',
+        type: 'suv',
+        year: 2022,
+        passengers: 5,
+        transmission: 'Automatike',
+        luggage: 4,
+        price: 55,
+        image: 'peugeot-3008.jpg',
+        features: ['Klimë', 'Navigacion', 'Bluetooth', 'Kamera Parkimi']
+    },
+    {
+        id: 12,
+        name: 'Tesla Model 3',
+        type: 'luksoz',
+        year: 2023,
+        passengers: 5,
+        transmission: 'Automatike',
+        luggage: 2,
+        price: 85,
+        image: 'tesla-model3.jpg',
+        features: ['Autopilot', 'Navigacion', 'Kamerat', 'Karikues']
     }
 ];
 
@@ -92,6 +165,13 @@ const locations = [
     }
 ];
 
+// Company contact info
+const contactInfo = {
+    phone: '+355 69 123 4567',
+    whatsapp: '+355 69 123 4567',
+    email: 'info@carrental.al'
+};
+
 // Initialize the application
 document.addEventListener('DOMContentLoaded', function() {
     // Display cars
@@ -99,9 +179,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Setup car filter
     document.getElementById('car-type').addEventListener('change', filterCars);
-
-    // Setup reservation form
-    setupReservationForm();
 
     // Initialize contact form
     setupContactForm();
@@ -128,75 +205,26 @@ function displayCars(filter = '') {
                 <p><strong>Valixhe:</strong> ${car.luggage}</p>
                 <p><strong>Veçori:</strong> ${car.features.join(', ')}</p>
                 <p class="car-price">${car.price}€ / ditë</p>
-                <a href="#reservation" class="btn" data-car-id="${car.id}">Rezervo</a>
+                <div class="contact-buttons">
+                    <a href="tel:${contactInfo.phone}" class="contact-btn phone-btn"><i class="fas fa-phone"></i> Telefono</a>
+                    <a href="https://wa.me/${contactInfo.whatsapp.replace(/\s+/g, '')}" class="contact-btn whatsapp-btn" target="_blank"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+                    <a href="mailto:${contactInfo.email}?subject=Interes për ${car.name}&body=Përshëndetje, jam i interesuar për makinën ${car.name} me çmim ${car.price}€ / ditë. Ju lutem më kontaktoni për të diskutuar në detaje." class="contact-btn email-btn"><i class="fas fa-envelope"></i> Email</a>
+                </div>
             </div>
         `;
         carsContainer.appendChild(carElement);
-
-        // Add event listener to reservation button
-        const reserveBtn = carElement.querySelector('.btn');
-        reserveBtn.addEventListener('click', function() {
-            document.getElementById('selected-car').value = car.id;
-        });
     });
 
     // If no cars match the filter
     if (filteredCars.length === 0) {
         carsContainer.innerHTML = '<p>Nuk u gjetën makina që përputhen me kriteret e kërkimit.</p>';
     }
-
-    // Populate car options in reservation form
-    const carSelect = document.getElementById('selected-car');
-    carSelect.innerHTML = '<option value="">Zgjidhni makinën</option>';
-    cars.forEach(car => {
-        const option = document.createElement('option');
-        option.value = car.id;
-        option.textContent = `${car.name} (${car.price}€ / ditë)`;
-        carSelect.appendChild(option);
-    });
 }
 
 // Function to filter cars
 function filterCars() {
     const filter = document.getElementById('car-type').value;
     displayCars(filter);
-}
-
-// Setup reservation form
-function setupReservationForm() {
-    const form = document.getElementById('reservation-form');
-
-    // Set minimum dates for the date inputs
-    const today = new Date();
-    const tomorrow = new Date(today);
-    tomorrow.setDate(today.getDate() + 1);
-    
-    const pickupDateInput = document.getElementById('pickup-date');
-    const returnDateInput = document.getElementById('return-date');
-    
-    pickupDateInput.min = formatDate(today);
-    returnDateInput.min = formatDate(tomorrow);
-    
-    // Make return date at least one day after pickup date
-    pickupDateInput.addEventListener('change', function() {
-        const pickupDate = new Date(this.value);
-        const nextDay = new Date(pickupDate);
-        nextDay.setDate(pickupDate.getDate() + 1);
-        returnDateInput.min = formatDate(nextDay);
-        
-        // Reset return date if it's before the new minimum
-        if (new Date(returnDateInput.value) < nextDay) {
-            returnDateInput.value = formatDate(nextDay);
-        }
-    });
-
-    // Handle form submission
-    form.addEventListener('submit', function(e) {
-        e.preventDefault();
-        // In a real application, you would send this data to a server
-        alert('Rezervimi juaj u pranua! Do t\'ju kontaktojmë së shpejti për konfirmimin.');
-        form.reset();
-    });
 }
 
 // Setup contact form
@@ -208,14 +236,6 @@ function setupContactForm() {
         alert('Mesazhi juaj u dërgua! Do t\'ju kontaktojmë së shpejti.');
         form.reset();
     });
-}
-
-// Helper function to format date as YYYY-MM-DD
-function formatDate(date) {
-    const year = date.getFullYear();
-    const month = String(date.getMonth() + 1).padStart(2, '0');
-    const day = String(date.getDate()).padStart(2, '0');
-    return `${year}-${month}-${day}`;
 }
 
 // Google Maps initialization
