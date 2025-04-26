@@ -111,14 +111,14 @@ const cars = [
     },
     {
         id: 10,
-        name: 'Renault Clio',
+        name: 'VW Golf 7',
         type: 'ekonomik',
         year: 2022,
         passengers: 5,
         transmission: 'Manuale',
         luggage: 2,
         price: 32,
-        image: 'renault-clio.jpg',
+        image: 'vw-golf-7.jpg',
         features: ['Klimë', 'Bluetooth', 'Sensorë Parkimi']
     },
     {
@@ -167,9 +167,9 @@ const locations = [
 
 // Company contact info
 const contactInfo = {
-    phone: '+355 69 123 4567',
-    whatsapp: '+355 69 123 4567',
-    email: 'info@carrental.al'
+    phone: '+355 69 943 8569',
+    whatsapp: '+355 69 943 8569',
+    email: 'dishiarlindo@gmail.com'
 };
 
 // Initialize the application
@@ -238,14 +238,14 @@ function setupContactForm() {
     });
 }
 
+  
 // Google Maps initialization
 function initMap() {
-    // Create a map centered on Tirana
     const map = new google.maps.Map(document.getElementById('map'), {
-        center: { lat: 41.3275, lng: 19.8187 },
-        zoom: 10
+      center: { lat: 41.3275, lng: 19.8187 },
+      zoom: 10
     });
-
+    
     // Add markers for each location
     locations.forEach(location => {
         const marker = new google.maps.Marker({
