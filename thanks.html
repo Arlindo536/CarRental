@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="sq">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CarRental - Faleminderit për Mesazhin</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .thank-you-container {
+            height: 80vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 20px;
+        }
+        
+        .thank-you-container h1 {
+            color: #ff6b6b;
+            margin-bottom: 20px;
+        }
+        
+        .thank-you-container p {
+            font-size: 18px;
+            margin-bottom: 30px;
+            max-width: 600px;
+        }
+        
+        .back-home {
+            background-color: #ff6b6b;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+        
+        .back-home:hover {
+            background-color: #ff5252;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header Section -->
+    <header>
+        <div class="container">
+            <div class="logo">
+                <h1>🚗 CarRental</h1>
+            </div>
+            <div class="menu-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="index.html#home">Kryefaqja</a></li>
+                    <li><a href="index.html#cars">Makinat</a></li>
+                    <li><a href="index.html#locations">Lokacionet</a></li>
+                    <li><a href="index.html#reservation">Rezervo</a></li>
+                    <li><a href="index.html#about">Rreth Nesh</a></li>
+                    <li><a href="index.html#contact">Kontakt</a></li>
+                </ul>
+            </nav>
+            <!-- Language selector will be inserted here by JavaScript -->
+        </div>
+    </header>
+
+    <!-- Thank You Section -->
+    <section class="thank-you-container">
+        <h1>Faleminderit për mesazhin tuaj!</h1>
+        <p>Mesazhi juaj u dërgua me sukses. Do t'ju kontaktojmë së shpejti.</p>
+        <a href="index.html" class="back-home">Kthehu në Faqen Kryesore</a>
+    </section>
+
+    <!-- Footer Section -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 CarRental. Të gjitha të drejtat e rezervuara.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script src="language.js"></script>
+</body>
+</html>

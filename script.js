@@ -227,16 +227,28 @@ function filterCars() {
     displayCars(filter);
 }
 
-// Setup contact form
 function setupContactForm() {
     const form = document.getElementById('contact-form');
+    
+    // FormSubmit.co already handles form submission, but you can add extra validation if needed
     form.addEventListener('submit', function(e) {
-        e.preventDefault();
-        // In a real application, you would send this data to a server
-        alert('Mesazhi juaj u dërgua! Do t\'ju kontaktojmë së shpejti.');
-        form.reset();
+        // You can add form validation here if needed, such as:
+        const name = document.getElementById('name').value;
+        const email = document.getElementById('email').value;
+        const message = document.getElementById('message').value;
+        
+        // Simple validation example (optional)
+        if (name.trim() === '' || email.trim() === '' || message.trim() === '') {
+            e.preventDefault();
+            alert('Ju lutemi plotësoni të gjitha fushat!');
+            return false;
+        }
+        
+        // No need to prevent default or show alert since we're submitting to FormSubmit.co
+        // The form will redirect to the thank you page automatically
     });
 }
+
 
   
 // Google Maps initialization
@@ -273,3 +285,23 @@ function initMap() {
         });
     });
 }
+
+// Setup mobile menu toggle
+function setupMobileMenu() {
+    const menuToggle = document.querySelector('.menu-toggle');
+    const nav = document.querySelector('nav');
+    const languageSelector = document.querySelector('.language-selector');
+    
+    if (menuToggle) {
+      menuToggle.addEventListener('click', function() {
+        nav.classList.toggle('active');
+        languageSelector.classList.toggle('active');
+      });
+    }
+  }
+  
+  // Call this function after DOM is loaded
+  document.addEventListener('DOMContentLoaded', function() {
+    setupMobileMenu();
+    // ...other initialization code
+  });

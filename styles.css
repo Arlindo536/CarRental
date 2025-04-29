@@ -363,3 +363,99 @@ footer {
         flex-direction: column;
     }
 }
+/* Add these styles to your styles.css file */
+
+/* Hide menu toggle on desktop */
+.menu-toggle {
+    display: none;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 30px;
+    height: 21px;
+    cursor: pointer;
+  }
+  
+  .menu-toggle span {
+    height: 3px;
+    width: 100%;
+    background-color: #333;
+    border-radius: 3px;
+  }
+  
+  /* Language selector styling */
+  .language-selector {
+    display: flex;
+    gap: 10px;
+  }
+  
+  .language-selector button {
+    background: none;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 5px 10px;
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+  
+  .language-selector button.active {
+    background-color: #ff6b6b;
+    color: white;
+    border-color: #ff6b6b;
+  }
+  
+  /* Responsive styles */
+  @media (max-width: 768px) {
+    header .container {
+      flex-direction: row;
+      flex-wrap: wrap;
+      justify-content: space-between;
+    }
+    
+    .menu-toggle {
+      display: flex;
+      z-index: 10;
+    }
+    
+    nav {
+      flex-basis: 100%;
+      display: none; /* Hidden by default on mobile */
+      margin-top: 20px;
+    }
+    
+    nav.active {
+      display: block; /* Shown when menu is toggled */
+    }
+    
+    nav ul {
+      flex-direction: column;
+      align-items: center;
+    }
+    
+    nav ul li {
+      margin: 10px 0;
+      width: 100%;
+      text-align: center;
+    }
+    
+    .language-selector {
+        display: flex;
+        gap: 10px;
+        margin-left: 20px; /* Add some space on desktop */
+      }
+      
+      @media (max-width: 768px) {
+        /* Other mobile styles remain the same */
+        
+        .language-selector {
+          width: 100%;
+          justify-content: center;
+          margin: 15px 0; /* Add vertical margin */
+          order: 3; /* Ensure it appears after the nav menu */
+        }
+        
+        /* Important: Don't hide by default, just style it properly for mobile */
+        header.menu-open .language-selector {
+          display: flex;
+        }
+      }
+    }
