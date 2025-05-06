@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="sq">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CarRental - Rezervo</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        .reservation-container {
+            max-width: 900px;
+            margin: 50px auto;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+        
+        .reservation-header {
+            background-color: #ff6b6b;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .reservation-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            padding: 30px;
+        }
+        
+        @media (max-width: 768px) {
+            .reservation-content {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .car-details {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .car-image {
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .car-info h3 {
+            margin-top: 0;
+            margin-bottom: 15px;
+        }
+        
+        .car-info p {
+            margin: 8px 0;
+        }
+        
+        .car-price {
+            font-size: 18px;
+            font-weight: bold;
+            color: #ff6b6b;
+            margin-top: 15px;
+        }
+        
+        .reservation-form {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+        
+        .form-group input, 
+        .form-group select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        
+        .price-summary {
+            background-color: #f9f9f9;
+            padding: 20px;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+        
+        .price-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+        
+        .price-total {
+            font-weight: bold;
+            margin-top: 10px;
+            padding-top: 10px;
+            border-top: 1px solid #ddd;
+        }
+        
+        .reserve-btn {
+            background-color: #ff6b6b;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 12px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            margin-top: 20px;
+        }
+        
+        .reserve-btn:hover {
+            background-color: #ff5252;
+        }
+        
+        .alert {
+            padding: 10px;
+            margin-bottom: 15px;
+            border-radius: 5px;
+            display: none;
+        }
+        
+        .alert-danger {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        
+        .alert-success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header Section -->
+    <header>
+        <div class="container">
+            <div class="logo">
+                <h1><a href="index.html">🚗 CarRental</a></h1>
+            </div>
+            <div class="menu-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="index.html#home">Kryefaqja</a></li>
+                    <li><a href="index.html#cars">Makinat</a></li>
+                    <li><a href="index.html#locations">Lokacionet</a></li>
+                    <li><a href="index.html#about">Rreth Nesh</a></li>
+                    <li><a href="index.html#contact">Kontakt</a></li>
+                    <li><a href="profile.html">Profili</a></li>
+                </ul>
+            </nav>
+            <!-- Language selector will be inserted here by JavaScript -->
+        </div>
+    </header>
+
+    <!-- Reservation Section -->
+    <section class="reservation-section">
+        <div class="container">
+            <div class="reservation-container">
+                <div class="reservation-header">
+                    <h2>Rezervo Makinën</h2>
+                </div>
+                
+                <div id="errorAlert" class="alert alert-danger"></div>
+                <div id="successAlert" class="alert alert-success"></div>
+                
+                <div class="reservation-content">
+                    <div class="car-details">
+                        <div id="car-image" class="car-image"></div>
+                        <div class="car-info" id="car-info">
+                            <h3>Duke ngarkuar...</h3>
+                        </div>
+                    </div>
+                    
+                    <div class="reservation-form">
+                        <form id="reserve-form">
+                            <input type="hidden" id="carId" name="carId">
+                            
+                            <div class="form-group">
+                                <label for="startDate">Data e Marrjes</label>
+                                <input type="date" id="startDate" name="startDate" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="endDate">Data e Dorëzimit</label>
+                                <input type="date" id="endDate" name="endDate" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="paymentMethod">Metoda e Pagesës</label>
+                                <select id="paymentMethod" name="paymentMethod" required>
+                                    <option value="cash">Para në Dorë</option>
+                                    <option value="credit_card">Kartë Krediti</option>
+                                </select>
+                            </div>
+                            
+                            <div class="price-summary" id="price-summary">
+                                <div class="price-row">
+                                    <span>Çmimi për ditë:</span>
+                                    <span id="price-per-day">0 €</span>
+                                </div>
+                                <div class="price-row">
+                                    <span>Numri i ditëve:</span>
+                                    <span id="num-days">0</span>
+                                </div>
+                                <div class="price-row price-total">
+                                    <span>Totali:</span>
+                                    <span id="total-price">0 €</span>
+                                </div>
+                            </div>
+                            
+                            <button type="submit" class="reserve-btn">Rezervo Tani</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer Section -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 CarRental. Të gjitha të drejtat e rezervuara.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Check if user is logged in
+            const userInfo = JSON.parse(localStorage.getItem('userInfo') || '{}');
+            const token = localStorage.getItem('token');
+            
+            if (!token || !userInfo._id) {
+                // Redirect to login page if not logged in
+                window.location.href = 'login.html';
+                return;
+            }
+            
+            // Get car ID from URL parameter
+            const urlParams = new URLSearchParams(window.location.search);
+            const carId = urlParams.get('id');
+            
+            if (!carId) {
+                // Redirect to cars page if no car ID provided
+                window.location.href = 'index.html#cars';
+                return;
+            }
+            
+            // Set minimum dates for date inputs
+            const today = new Date();
+            const tomorrow = new Date(today);
+            tomorrow.setDate(tomorrow.getDate() + 1);
+            
+            document.getElementById('startDate').min = formatDate(today);
+            document.getElementById('endDate').min = formatDate(tomorrow);
+            
+            // Set car ID in hidden field
+            document.getElementById('carId').value = carId;
+            
+            // Load car details
+            loadCarDetails(carId);
+            
+            // Setup date change listeners
+            document.getElementById('startDate').addEventListener('change', updatePriceSummary);
+            document.getElementById('endDate').addEventListener('change', updatePriceSummary);
+            
+            // Setup form submission
+            document.getElementById('reserve-form').addEventListener('submit', reserveCar);
+            
+            // Function to load car details
+            async function loadCarDetails(carId) {
+                try {
+                    const response = await fetch(`/api/cars/${carId}`);
+                    
+                    if (!response.ok) {
+                        throw new Error('Gabim gjatë ngarkimit të të dhënave të makinës');
+                    }
+                    
+                    const car = await response.json();
+                    
+                    // Display car image
+                    document.getElementById('car-image').style.backgroundImage = `url('/images/${car.image}')`;
+                    
+                    // Display car info
+                    const carInfo = document.getElementById('car-info');
+                    carInfo.innerHTML = `
+                        <h3>${car.name} (${car.year})</h3>
+                        <p><strong>Pasagjerë:</strong> ${car.passengers}</p>
+                        <p><strong>Transmisioni:</strong> ${car.transmission}</p>
+                        <p><strong>Valixhe:</strong> ${car.luggage}</p>
+                        <p><strong>Veçori:</strong> ${car.features.join(', ')}</p>
+                        <p class="car-price">${car.price}€ / ditë</p>
+                    `;
+                    
+                    // Set price in price summary
+                    document.getElementById('price-per-day').textContent = `${car.price} €`;
+                    
+                    // Store car price as a data attribute for calculations
+                    document.getElementById('price-summary').setAttribute('data-price', car.price);
+                    
+                    // Update price summary
+                    updatePriceSummary();
+                    
+                } catch (error) {
+                    document.getElementById('errorAlert').textContent = error.message;
+                    document.getElementById('errorAlert').style.display = 'block';
+                }
+            }
+            
+            // Function to update price summary
+            function updatePriceSummary() {
+                const startDate = document.getElementById('startDate').value;
+                const endDate = document.getElementById('endDate').value;
+                
+                if (startDate && endDate) {
+                    const start = new Date(startDate);
+                    const end = new Date(endDate);
+                    
+                    // Validate dates
+                    if (end <= start) {
+                        document.getElementById('errorAlert').textContent = 'Data e dorëzimit duhet të jetë pas datës së marrjes';
+                        document.getElementById('errorAlert').style.display = 'block';
+                        document.getElementById('num-days').textContent = '0';
+                        document.getElementById('total-price').textContent = '0 €';
+                        return;
+                    }
+                    
+                    document.getElementById('errorAlert').style.display = 'none';
+                    
+                    // Calculate number of days
+                    const diffTime = Math.abs(end - start);
+                    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+                    
+                    // Get price per day
+                    const pricePerDay = parseFloat(document.getElementById('price-summary').getAttribute('data-price'));
+                    
+                    // Calculate total price
+                    const totalPrice = pricePerDay * diffDays;
+                    
+                    // Update price summary
+                    document.getElementById('num-days').textContent = diffDays;
+                    document.getElementById('total-price').textContent = `${totalPrice} €`;
+                }
+            }
+            
+            // Function to reserve car
+            async function reserveCar(e) {
+                e.preventDefault();
+                
+                const errorAlert = document.getElementById('errorAlert');
+                const successAlert = document.getElementById('successAlert');
+                
+                // Hide alerts
+                errorAlert.style.display = 'none';
+                successAlert.style.display = 'none';
+                
+                // Get form data
+                const carId = document.getElementById('carId').value;
+                const startDate = document.getElementById('startDate').value;
+                const endDate = document.getElementById('endDate').value;
+                const paymentMethod = document.getElementById('paymentMethod').value;
+                
+                // Validate dates
+                const start = new Date(startDate);
+                const end = new Date(endDate);
+                
+                if (end <= start) {
+                    errorAlert.textContent = 'Data e dorëzimit duhet të jetë pas datës së marrjes';
+                    errorAlert.style.display = 'block';
+                    return;
+                }
+                
+                try {
+                    const response = await fetch('/api/rentals', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': `Bearer ${token}`
+                        },
+                        body: JSON.stringify({
+                            carId,
+                            startDate,
+                            endDate,
+                            paymentMethod
+                        })
+                    });
+                    
+                    if (!response.ok) {
+                        const data = await response.json();
+                        throw new Error(data.message || 'Gabim gjatë rezervimit');
+                    }
+                    
+                    const rental = await response.json();
+                    
+                    // Show success message
+                    successAlert.textContent = 'Rezervimi u krye me sukses!';
+                    successAlert.style.display = 'block';
+                    
+                    // Redirect to profile page after delay
+                    setTimeout(() => {
+                        window.location.href = 'profile.html';
+                    }, 2000);
+                    
+                } catch (error) {
+                    errorAlert.textContent = error.message;
+                    errorAlert.style.display = 'block';
+                }
+            }
+            
+            // Helper function to format date as YYYY-MM-DD
+            function formatDate(date) {
+                const year = date.getFullYear();
+                const month = String(date.getMonth() + 1).padStart(2, '0');
+                const day = String(date.getDate()).padStart(2, '0');
+                return `${year}-${month}-${day}`;
+            }
+        });
+    </script>
+</body>
+</html>

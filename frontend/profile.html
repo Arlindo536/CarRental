@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="sq">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CarRental - Profili Im</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        .profile-container {
+            max-width: 1000px;
+            margin: 50px auto;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+        
+        .profile-header {
+            background-color: #ff6b6b;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .profile-nav {
+            display: flex;
+            background-color: #f9f9f9;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .profile-nav button {
+            flex: 1;
+            padding: 15px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 500;
+            transition: background-color 0.3s;
+        }
+        
+        .profile-nav button.active {
+            background-color: #fff;
+            border-bottom: 3px solid #ff6b6b;
+        }
+        
+        .profile-nav button:hover:not(.active) {
+            background-color: #f0f0f0;
+        }
+        
+        .profile-content {
+            padding: 30px;
+        }
+        
+        .profile-section {
+            display: none;
+        }
+        
+        .profile-section.active {
+            display: block;
+        }
+        
+        .profile-info {
+            display: grid;
+            grid-template-columns: 150px 1fr;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .profile-info .label {
+            font-weight: bold;
+        }
+        
+        .rental-history-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        
+        .rental-history-table th, 
+        .rental-history-table td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        .rental-history-table th {
+            background-color: #f9f9f9;
+            font-weight: 500;
+        }
+        
+        .rental-history-table tr:hover {
+            background-color: #f5f5f5;
+        }
+        
+        .rental-history-table img {
+            width: 60px;
+            height: 40px;
+            object-fit: cover;
+            border-radius: 4px;
+        }
+        
+        .rental-status {
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 50px;
+            font-size: 14px;
+            font-weight: 500;
+        }
+        
+        .status-pending {
+            background-color: #fff8e1;
+            color: #ffa000;
+        }
+        
+        .status-confirmed {
+            background-color: #e8f5e9;
+            color: #43a047;
+        }
+        
+        .status-completed {
+            background-color: #e3f2fd;
+            color: #1976d2;
+        }
+        
+        .status-cancelled {
+            background-color: #ffebee;
+            color: #e53935;
+        }
+        
+        .logout-btn {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            background-color: #f44336;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            margin-top: 30px;
+        }
+        
+        .logout-btn:hover {
+            background-color: #d32f2f;
+        }
+        
+        .empty-message {
+            text-align: center;
+            padding: 30px;
+            color: #999;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header Section -->
+    <header>
+        <div class="container">
+            <div class="logo">
+                <h1><a href="index.html">🚗 CarRental</a></h1>
+            </div>
+            <div class="menu-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="index.html#home">Kryefaqja</a></li>
+                    <li><a href="index.html#cars">Makinat</a></li>
+                    <li><a href="index.html#locations">Lokacionet</a></li>
+                    <li><a href="index.html#about">Rreth Nesh</a></li>
+                    <li><a href="index.html#contact">Kontakt</a></li>
+                    <li><a href="profile.html" class="active">Profili</a></li>
+                </ul>
+            </nav>
+            <!-- Language selector will be inserted here by JavaScript -->
+        </div>
+    </header>
+
+    <!-- Profile Section -->
+    <section class="profile-section">
+        <div class="container">
+            <div class="profile-container">
+                <div class="profile-header">
+                    <h2>Profili Im</h2>
+                </div>
+                
+                <div class="profile-nav">
+                    <button class="tab-btn active" data-tab="personal-info">Të Dhënat Personale</button>
+                    <button class="tab-btn" data-tab="rental-history">Historiku i Rezervimeve</button>
+                </div>
+                
+                <div class="profile-content">
+                    <!-- Personal Info Section -->
+                    <div id="personal-info" class="profile-section active">
+                        <div class="profile-info">
+                            <div class="label">Emri:</div>
+                            <div id="user-name">Loading...</div>
+                        </div>
+                        <div class="profile-info">
+                            <div class="label">Email:</div>
+                            <div id="user-email">Loading...</div>
+                        </div>
+                        <div class="profile-info">
+                            <div class="label">Anëtar që nga:</div>
+                            <div id="user-date">Loading...</div>
+                        </div>
+                        
+                        <button id="logout-btn" class="logout-btn">Dilni nga Llogaria</button>
+                    </div>
+                    
+                    <!-- Rental History Section -->
+                    <div id="rental-history" class="profile-section">
+                        <h3>Historiku i Rezervimeve</h3>
+                        <div id="rental-table-container">
+                            <p class="loading-message">Duke ngarkuar rezervimet...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer Section -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 CarRental. Të gjitha të drejtat e rezervuara.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Check if user is logged in
+            const userInfo = JSON.parse(localStorage.getItem('userInfo') || '{}');
+            const token = localStorage.getItem('token');
+            
+            if (!token || !userInfo._id) {
+                // Redirect to login page if not logged in
+                window.location.href = 'login.html';
+                return;
+            }
+            
+            // Set up tab navigation
+            const tabButtons = document.querySelectorAll('.tab-btn');
+            const profileSections = document.querySelectorAll('.profile-section');
+            
+            tabButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    // Remove active class from all buttons and sections
+                    tabButtons.forEach(btn => btn.classList.remove('active'));
+                    profileSections.forEach(section => section.classList.remove('active'));
+                    
+                    // Add active class to clicked button and corresponding section
+                    button.classList.add('active');
+                    const tabId = button.getAttribute('data-tab');
+                    document.getElementById(tabId).classList.add('active');
+                    
+                    // Load rentals if rental history tab is clicked
+                    if (tabId === 'rental-history') {
+                        loadRentals();
+                    }
+                });
+            });
+            
+            // Replace the user info display part in profile.html with:
+// Display user info
+document.getElementById('user-name').textContent = userInfo.name || 'N/A';
+document.getElementById('user-email').textContent = userInfo.email || 'N/A';
+
+// Format registration date
+const regDate = userInfo.createdAt ? new Date(userInfo.createdAt) : new Date();
+document.getElementById('user-date').textContent = regDate.toLocaleDateString('sq-AL');
+
+// Add some console logging to see what data we have
+console.log('User info from localStorage:', userInfo);
+            // Setup logout button
+          // Replace the existing logout button script in profile.html with:
+document.getElementById('logout-btn').addEventListener('click', function() {
+    console.log('Logout button clicked'); // Add this line for debugging
+    localStorage.removeItem('userInfo');
+    localStorage.removeItem('token');
+    alert('You have been logged out'); // Add this line for debugging
+    window.location.href = 'index.html';
+});
+            // Function to load rental history
+            async function loadRentals() {
+                const tableContainer = document.getElementById('rental-table-container');
+                tableContainer.innerHTML = '<p class="loading-message">Duke ngarkuar rezervimet...</p>';
+                
+                try {
+                    const response = await fetch('/api/rentals/myrentals', {
+                        method: 'GET',
+                        headers: {
+                            'Authorization': `Bearer ${token}`
+                        }
+                    });
+                    
+                    if (!response.ok) {
+                        throw new Error('Gabim gjatë ngarkimit të rezervimeve');
+                    }
+                    
+                    const rentals = await response.json();
+                    
+                    if (rentals.length === 0) {
+                        tableContainer.innerHTML = '<p class="empty-message">Nuk keni ende rezervime.</p>';
+                        return;
+                    }
+                    
+                    // Create table with rentals
+                    let tableHTML = `
+                        <table class="rental-history-table">
+                            <thead>
+                                <tr>
+                                    <th>Makina</th>
+                                    <th>Data Fillimit</th>
+                                    <th>Data Mbarimit</th>
+                                    <th>Çmimi Total</th>
+                                    <th>Statusi</th>
+                                    <th>Pagesa</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                    `;
+                    
+                    rentals.forEach(rental => {
+                        // Format dates
+                        const startDate = new Date(rental.startDate).toLocaleDateString('sq-AL');
+                        const endDate = new Date(rental.endDate).toLocaleDateString('sq-AL');
+                        
+                        // Determine status class
+                        const statusClass = `status-${rental.status}`;
+                        
+                        // Determine payment status
+                        const paymentStatus = rental.isPaid ? 'Paguar' : 'Jo e paguar';
+                        
+                        tableHTML += `
+                            <tr>
+                                <td>
+                                    <div style="display: flex; align-items: center;">
+                                        <img src="images/${rental.car.image}" alt="${rental.car.name}">
+                                        <span style="margin-left: 10px;">${rental.car.name}</span>
+                                    </div>
+                                </td>
+                                <td>${startDate}</td>
+                                <td>${endDate}</td>
+                                <td>${rental.totalPrice} €</td>
+                                <td><span class="rental-status ${statusClass}">${rental.status}</span></td>
+                                <td>${paymentStatus}</td>
+                            </tr>
+                        `;
+                    });
+                    
+                    tableHTML += `
+                            </tbody>
+                        </table>
+                    `;
+                    
+                    tableContainer.innerHTML = tableHTML;
+                    
+                } catch (error) {
+                    tableContainer.innerHTML = `<p class="empty-message">Gabim: ${error.message}</p>`;
+                }
+            }
+        });
+    </script>
+</body>
+</html>
