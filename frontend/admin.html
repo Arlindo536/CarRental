@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="sq">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CarRental - Admin Dashboard</title>
+    <link rel="stylesheet" href="/frontend/css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="/frontend/css/admin.css">
+</head>
+<body>
+    <!-- Header Section -->
+    <header>
+        <div class="container">
+            <div class="logo">
+                <h1><a href="index.html">🚗 CarRental</a></h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Kryefaqja</a></li>
+                    <li><a href="admin.html" class="active">Admin Dashboard</a></li>
+                    <li><a href="#" id="logout-btn">Dilni</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Admin Dashboard Section -->
+    <section class="admin-section">
+        <div class="container">
+            <div class="admin-container">
+                <div class="admin-header">
+                    <h2>Admin Dashboard</h2>
+                </div>
+                
+                <div class="admin-nav">
+                    <button class="tab-btn active" data-tab="all-rentals">Të gjitha Rezervimet</button>
+                    <button class="tab-btn" data-tab="car-management">Menaxhimi i Makinave</button>
+                    <button class="tab-btn" data-tab="user-management">Menaxhimi i Përdoruesve</button>
+                </div>
+                
+                <div class="admin-content">
+                    <!-- All Rentals Section -->
+                    <div id="all-rentals" class="admin-tab active">
+                        <h3>Të gjitha Rezervimet</h3>
+                        <div id="rentals-table-container">
+                            <p class="loading-message">Duke ngarkuar rezervimet...</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Car Management Section -->
+                    <div id="car-management" class="admin-tab">
+                        <h3>Menaxhimi i Makinave</h3>
+                        <button id="add-car-btn" class="action-btn">Shto Makinë të Re</button>
+                        <div id="cars-table-container">
+                            <p class="loading-message">Duke ngarkuar makinat...</p>
+                        </div>
+                    </div>
+                    
+                    <!-- User Management Section -->
+                    <div id="user-management" class="admin-tab">
+                        <h3>Menaxhimi i Përdoruesve</h3>
+                        <div id="users-table-container">
+                            <p class="loading-message">Duke ngarkuar përdoruesit...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer Section -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 CarRental. Të gjitha të drejtat e rezervuara.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script src="admin.js"></script>
+</body>
+</html>
