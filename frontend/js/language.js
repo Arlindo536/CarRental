@@ -174,7 +174,7 @@ function changeLanguage(language) {
     });
 
     // Update car display and other dynamic content
-    displayCars(document.getElementById('car-type').value);
+    displayCarsWithTranslation(document.getElementById('car-type').value);
 
     // Save language preference to localStorage
     localStorage.setItem('preferredLanguage', language);
@@ -243,13 +243,24 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 // Modified displayCars function to use translations
-function displayCars(filter = '') {
+function displayCarsWithTranslation(filter = '') {
     const carsContainer = document.querySelector('.cars-container');
     carsContainer.innerHTML = '';
 
+    // Use the local carsData array instead of API data for language translation purposes
+    const dataToUse = carsData || []; // Use carsData (renamed from cars)
+    
     // Filter cars if needed
-    const filteredCars = filter ? cars.filter(car => car.type === filter) : cars;
-
+    const filteredCars = filter ? dataToUse.filter(car => car.type === filter) : dataToUse;
+    
+    console.log('Filtered cars in language.js:', filteredCars);
+    
+    // Make sure filteredCars is an array
+    if (!Array.isArray(filteredCars)) {
+        console.error('filteredCars is not an array:', filteredCars);
+        carsContainer.innerHTML = '<p>Error: Invalid data format</p>';
+        return;
+    }
     // Create car elements
     filteredCars.forEach(car => {
         const carElement = document.createElement('div');

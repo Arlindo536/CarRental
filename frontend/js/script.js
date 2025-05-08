@@ -1,4 +1,4 @@
-const cars = [
+const carsData = [
     {
         id: 1,
         name: 'Toyota Corolla',
@@ -215,46 +215,64 @@ async function fetchWithAuth(url, method = 'GET', body = null) {
 //     }
 // }
 
-// Function to display cars
 function displayCars(filter = '') {
     const carsContainer = document.querySelector('.cars-container');
-    if (!carsContainer) return; // Exit if container not found
-    
-    carsContainer.innerHTML = '';
-
-    // Filter cars if needed
-    const filteredCars = filter ? cars.filter(car => car.type === filter) : cars;
-
-    console.log('Displaying cars:', filteredCars); // Debug log to see car data
-
-    // Create car elements
-    filteredCars.forEach(car => {
-        const carElement = document.createElement('div');
-        carElement.className = 'car-card';
-        carElement.innerHTML = `
-            <div class="car-image" style="background-image: url('images/${car.image}')"></div>
-            <div class="car-details">
-                <h3>${car.name} (${car.year})</h3>
-                <p><strong>Pasagjerë:</strong> ${car.passengers}</p>
-                <p><strong>Transmisioni:</strong> ${car.transmission}</p>
-                <p><strong>Valixhe:</strong> ${car.luggage}</p>
-                <p><strong>Veçori:</strong> ${car.features.join(', ')}</p>
-                <p class="car-price">${car.price}€ / ditë</p>
-                <div class="contact-buttons">
-                    <a href="tel:${contactInfo.phone}" class="contact-btn phone-btn"><i class="fas fa-phone"></i> Telefono</a>
-                    <a href="https://wa.me/${contactInfo.whatsapp.replace(/\s+/g, '')}" class="contact-btn whatsapp-btn" target="_blank"><i class="fab fa-whatsapp"></i> WhatsApp</a>
-                    <a href="mailto:${contactInfo.email}?subject=Interes për ${car.name}&body=Përshëndetje, jam i interesuar për makinën ${car.name} me çmim ${car.price}€ / ditë. Ju lutem më kontaktoni për të diskutuar në detaje." class="contact-btn email-btn"><i class="fas fa-envelope"></i> Email</a>
-                </div>
-                <a href="reserve.html?id=${car._id}" class="btn reserve-btn" style="margin-top: 15px; width: 100%; text-align: center;">Rezervo Tani</a>
-            </div>
-        `;
-        carsContainer.appendChild(carElement);
-    });
-
-    // If no cars match the filter
-    if (filteredCars.length === 0) {
-        carsContainer.innerHTML = '<p>Nuk u gjetën makina që përputhen me kriteret e kërkimit.</p>';
+    if (!carsContainer) {
+        console.error('No cars container found!');
+        return;
     }
+    
+    carsContainer.innerHTML = '<p class="loading-message">Duke ngarkuar makinat...</p>';
+    
+    // Use direct fetch instead of the cars.getAll() function
+    fetch('http://localhost:5000/api/cars')
+        .then(response => response.json())
+        .then(carsData => {
+            console.log('Cars data received:', carsData);
+            
+            // Filter cars if needed
+            const filteredCars = filter ? carsData.filter(car => car.type === filter) : carsData;
+            
+            console.log('Filtered cars:', filteredCars);
+            
+            if (filteredCars.length === 0) {
+                carsContainer.innerHTML = '<p>Nuk u gjetën makina që përputhen me kriteret e kërkimit.</p>';
+                return;
+            }
+            
+            // Clear loading message
+            carsContainer.innerHTML = '';
+            
+            // Create car elements
+            filteredCars.forEach(car => {
+                console.log('Creating element for car:', car.name);
+                
+                const carElement = document.createElement('div');
+                carElement.className = 'car-card';
+                carElement.innerHTML = `
+                    <div class="car-image" style="background-image: url('/images/${car.image}')"></div>
+                    <div class="car-details">
+                        <h3>${car.name} (${car.year})</h3>
+                        <p><strong>Pasagjerë:</strong> ${car.passengers}</p>
+                        <p><strong>Transmisioni:</strong> ${car.transmission}</p>
+                        <p><strong>Valixhe:</strong> ${car.luggage}</p>
+                        <p><strong>Veçori:</strong> ${car.features.join(', ')}</p>
+                        <p class="car-price">${car.price}€ / ditë</p>
+                        <div class="contact-buttons">
+                            <a href="tel:${contactInfo.phone}" class="contact-btn phone-btn"><i class="fas fa-phone"></i> Telefono</a>
+                            <a href="https://wa.me/${contactInfo.whatsapp.replace(/\s+/g, '')}" class="contact-btn whatsapp-btn" target="_blank"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+                            <a href="mailto:${contactInfo.email}?subject=Interes për ${car.name}&body=Përshëndetje, jam i interesuar për makinën ${car.name} me çmim ${car.price}€ / ditë. Ju lutem më kontaktoni për të diskutuar në detaje." class="contact-btn email-btn"><i class="fas fa-envelope"></i> Email</a>
+                        </div>
+                        <a href="reserve.html?id=${car._id}" class="btn reserve-btn" style="margin-top: 15px; width: 100%; text-align: center;">Rezervo Tani</a>
+                    </div>
+                `;
+                carsContainer.appendChild(carElement);
+            });
+        })
+        .catch(error => {
+            console.error('Error fetching cars:', error);
+            carsContainer.innerHTML = `<p class="error-message">Gabim gjatë ngarkimit të makinave: ${error.message}</p>`;
+        });
 }
 
 // Function to filter cars

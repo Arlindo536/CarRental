@@ -188,5 +188,21 @@
 <script src="/js/script.js"></script>
 <script src="/js/map.js"></script>
 <script src="/js/language.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+  $(document).ready(function() {
+    console.log('jQuery loaded. Testing API...');
+    
+    // Test the cars API directly
+    $.get('http://localhost:5000/api/cars')
+      .done(function(data) {
+        console.log('Direct API call succeeded:', data);
+      })
+      .fail(function(error) {
+        console.error('Direct API call failed:', error);
+      });
+  });
+</script>
 </body>
 </html>

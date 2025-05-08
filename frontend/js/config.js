@@ -1,4 +1,3 @@
-// API configuration
 const API_URL = 'http://localhost:5000/api';
 
 // Helper function for authenticated API calls
@@ -36,19 +35,6 @@ async function fetchWithAuth(url, method = 'GET', body = null) {
         throw error;
     }
 }
-
-// Auth Functions
-const auth = {
-    login: async (email, password) => {
-        return await fetchWithAuth('/auth/login', 'POST', { email, password });
-    },
-    register: async (name, email, password) => {
-        return await fetchWithAuth('/auth/register', 'POST', { name, email, password });
-    },
-    getProfile: async () => {
-        return await fetchWithAuth('/auth/profile');
-    }
-};
 
 // Car Functions
 const cars = {
