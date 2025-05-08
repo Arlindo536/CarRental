@@ -24,23 +24,12 @@ document.addEventListener('DOMContentLoaded', function() {
             }
             
             try {
-                const response = await fetch('/api/auth/register', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({ name, email, password })
-                });
-                
-                const data = await response.json();
-                
-                if (!response.ok) {
-                    throw new Error(data.message || 'Gabim gjatë regjistrimit');
-                }
+                // Use the auth module from config.js
+                const userData = await auth.register(name, email, password);
                 
                 // Save user data and token to localStorage
-                localStorage.setItem('userInfo', JSON.stringify(data));
-                localStorage.setItem('token', data.token);
+                localStorage.setItem('userInfo', JSON.stringify(userData));
+                localStorage.setItem('token', userData.token);
                 
                 // Show success message
                 successAlert.textContent = 'Regjistrim i suksesshëm!';
@@ -53,7 +42,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 
             } catch (error) {
                 // Show error message
-                errorAlert.textContent = error.message;
+                errorAlert.textContent = error.message || 'Gabim gjatë regjistrimit';
                 errorAlert.style.display = 'block';
             }
         });

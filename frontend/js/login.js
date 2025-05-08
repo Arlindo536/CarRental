@@ -15,23 +15,12 @@ document.addEventListener('DOMContentLoaded', function() {
             const password = document.getElementById('password').value;
             
             try {
-                const response = await fetch('/api/auth/login', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({ email, password })
-                });
-                
-                const data = await response.json();
-                
-                if (!response.ok) {
-                    throw new Error(data.message || 'Gabim gjatë hyrjes');
-                }
+                // Use the auth module from config.js
+                const userData = await auth.login(email, password);
                 
                 // Save user data and token to localStorage
-                localStorage.setItem('userInfo', JSON.stringify(data));
-                localStorage.setItem('token', data.token);
+                localStorage.setItem('userInfo', JSON.stringify(userData));
+                localStorage.setItem('token', userData.token);
                 
                 // Show success message
                 successAlert.textContent = 'Hyrje e suksesshme!';
@@ -44,7 +33,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 
             } catch (error) {
                 // Show error message
-                errorAlert.textContent = error.message;
+                errorAlert.textContent = error.message || 'Email ose fjalëkalim i pavlefshëm';
                 errorAlert.style.display = 'block';
             }
         });

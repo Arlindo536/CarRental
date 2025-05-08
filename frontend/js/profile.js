@@ -53,20 +53,10 @@ document.addEventListener('DOMContentLoaded', function() {
         tableContainer.innerHTML = '<p class="loading-message">Duke ngarkuar rezervimet...</p>';
         
         try {
-            const response = await fetch('/api/rentals/myrentals', {
-                method: 'GET',
-                headers: {
-                    'Authorization': `Bearer ${token}`
-                }
-            });
+            // Use rentals module from config.js
+            const userRentals = await rentals.getUserRentals();
             
-            if (!response.ok) {
-                throw new Error('Gabim gjatë ngarkimit të rezervimeve');
-            }
-            
-            const rentals = await response.json();
-            
-            if (rentals.length === 0) {
+            if (userRentals.length === 0) {
                 tableContainer.innerHTML = '<p class="empty-message">Nuk keni ende rezervime.</p>';
                 return;
             }
@@ -82,12 +72,13 @@ document.addEventListener('DOMContentLoaded', function() {
                             <th>Çmimi Total</th>
                             <th>Statusi</th>
                             <th>Pagesa</th>
+                            <th>Veprime</th>
                         </tr>
                     </thead>
                     <tbody>
             `;
             
-            rentals.forEach(rental => {
+            userRentals.forEach(rental => {
                 // Format dates
                 const startDate = new Date(rental.startDate).toLocaleDateString('sq-AL');
                 const endDate = new Date(rental.endDate).toLocaleDateString('sq-AL');
@@ -95,22 +86,46 @@ document.addEventListener('DOMContentLoaded', function() {
                 // Determine status class
                 const statusClass = `status-${rental.status}`;
                 
+                // Translate status
+                let statusText;
+                switch(rental.status) {
+                    case 'pending': statusText = 'Në Pritje'; break;
+                    case 'confirmed': statusText = 'Konfirmuar'; break;
+                    case 'completed': statusText = 'Përfunduar'; break;
+                    case 'cancelled': statusText = 'Anuluar'; break;
+                    default: statusText = rental.status;
+                }
+                
                 // Determine payment status
                 const paymentStatus = rental.isPaid ? 'Paguar' : 'Jo e paguar';
+                
+                // Determine if this rental can be cancelled
+                const canCancel = rental.status === 'pending' || rental.status === 'confirmed';
+                const now = new Date();
+                const rentalStart = new Date(rental.startDate);
+                // Only allow cancellation if start date is at least 24 hours away
+                const cancellationDeadlinePassed = (rentalStart - now) < 24 * 60 * 60 * 1000;
                 
                 tableHTML += `
                     <tr>
                         <td>
-                            <div style="display: flex; align-items: center;">
+                            <div class="car-info-cell">
                                 <img src="images/${rental.car.image}" alt="${rental.car.name}">
-                                <span style="margin-left: 10px;">${rental.car.name}</span>
+                                <span>${rental.car.name}</span>
                             </div>
                         </td>
                         <td>${startDate}</td>
                         <td>${endDate}</td>
                         <td>${rental.totalPrice} €</td>
-                        <td><span class="rental-status ${statusClass}">${rental.status}</span></td>
+                        <td><span class="rental-status ${statusClass}">${statusText}</span></td>
                         <td>${paymentStatus}</td>
+                        <td>
+                            ${canCancel && !cancellationDeadlinePassed ? 
+                                `<button class="action-btn cancel-btn" data-rental-id="${rental._id}">Anulo</button>` : 
+                                rental.status === 'pending' || rental.status === 'confirmed' ? 
+                                    '<span class="info-text" title="Nuk mund të anuloni këtë rezervim sepse afati i fundit i anulimit ka kaluar">Afat i kaluar</span>' : 
+                                    ''}
+                        </td>
                     </tr>
                 `;
             });
@@ -122,8 +137,40 @@ document.addEventListener('DOMContentLoaded', function() {
             
             tableContainer.innerHTML = tableHTML;
             
+            // Add event listeners to cancel buttons
+            document.querySelectorAll('.cancel-btn').forEach(button => {
+                button.addEventListener('click', function() {
+                    if (confirm('Jeni të sigurt që dëshironi të anuloni këtë rezervim?')) {
+                        cancelRental(this.getAttribute('data-rental-id'));
+                    }
+                });
+            });
+            
         } catch (error) {
-            tableContainer.innerHTML = `<p class="empty-message">Gabim: ${error.message}</p>`;
+            console.error('Error loading rentals:', error);
+            tableContainer.innerHTML = `<p class="error-message">Gabim: ${error.message}</p>`;
         }
+    }
+    
+    // Function to cancel a rental
+    async function cancelRental(rentalId) {
+        try {
+            await rentals.updateStatus(rentalId, 'cancelled');
+            
+            // Show success message
+            alert('Rezervimi u anulua me sukses!');
+            
+            // Reload rentals
+            loadRentals();
+            
+        } catch (error) {
+            console.error('Error cancelling rental:', error);
+            alert(`Gabim: ${error.message}`);
+        }
+    }
+    
+    // Load rentals if rental history tab is active by default
+    if (document.querySelector('.tab-btn.active').getAttribute('data-tab') === 'rental-history') {
+        loadRentals();
     }
 });
