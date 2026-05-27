@@ -1,0 +1,123 @@
+/* ============================================================
+   cards.css  –  Car grid, car cards, filter buttons
+   ============================================================ */
+
+/* ── CARS SECTION ──────────────────────────── */
+.cars-section { background: var(--light-bg); }
+
+/* Filter pills */
+.car-filters { display: flex; gap: 8px; flex-wrap: wrap; }
+.filter-btn {
+    padding: 8px 18px;
+    border: 2px solid var(--border);
+    background: #fff;
+    border-radius: 50px;
+    font-family: var(--font-body);
+    font-weight: 500;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: all var(--ease);
+}
+.filter-btn:hover  { border-color: var(--red); color: var(--red); }
+.filter-btn.active { border-color: var(--red); background: var(--red); color: #fff; }
+
+/* Grid */
+.cars-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 24px;
+}
+
+.no-results {
+    grid-column: 1 / -1;
+    text-align: center;
+    color: var(--text-muted);
+    padding: 40px 0;
+    font-size: 1rem;
+}
+
+/* Car card */
+.car-card {
+    background: #fff;
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    border: 1px solid var(--border);
+    transition: transform var(--ease), box-shadow var(--ease);
+    display: flex;
+    flex-direction: column;
+}
+.car-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-hover); }
+
+/* Image area */
+.car-img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    background: #e9ecef;
+}
+.car-img-placeholder {
+    width: 100%;
+    height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #e9ecef;
+    font-size: 3rem;
+}
+
+/* Details */
+.car-details { padding: 20px; display: flex; flex-direction: column; flex: 1; }
+.car-details h3 { margin-bottom: 12px; }
+
+.car-specs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 10px;
+}
+.spec-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 4px 10px;
+    background: var(--light-bg);
+    border-radius: 50px;
+    font-size: 0.78rem;
+    color: var(--text-muted);
+}
+.spec-chip i { color: var(--red); font-size: 0.68rem; }
+
+.car-features { font-size: 0.82rem; color: var(--text-muted); margin-bottom: 14px; }
+
+.car-price {
+    font-family: var(--font-display);
+    font-weight: 700;
+    color: var(--red);
+    font-size: 1rem;
+    margin-bottom: 14px;
+    margin-top: auto;
+}
+
+/* Contact buttons on car card */
+.car-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+.car-btn {
+    flex: 1;
+    min-width: 72px;
+    padding: 8px 10px;
+    border-radius: var(--radius-sm);
+    color: #fff;
+    font-size: 0.8rem;
+    font-weight: 500;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    transition: opacity var(--ease), transform var(--ease);
+}
+.car-btn:hover { opacity: 0.88; transform: translateY(-1px); }
+.car-btn-phone    { background: #2e7d32; }
+.car-btn-whatsapp { background: #25d366; }
+.car-btn-email    { background: #c62828; }

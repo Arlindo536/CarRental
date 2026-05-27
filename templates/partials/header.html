@@ -1,0 +1,36 @@
+<header id="site-header">
+    <div class="container header-inner">
+
+        <div class="logo">
+            <a href="{{ url_for('index') }}">
+                <span class="logo-icon">🚗</span> CarRental
+            </a>
+        </div>
+
+        <button class="menu-toggle" aria-label="Toggle menu" aria-expanded="false">
+            <span></span><span></span><span></span>
+        </button>
+
+        <nav id="main-nav">
+            <ul>
+                <li><a href="#home">{{ t.nav_home }}</a></li>
+                <li><a href="#cars">{{ t.nav_cars }}</a></li>
+                <li><a href="#locations">{{ t.nav_locations }}</a></li>
+                <li><a href="#about">{{ t.nav_about }}</a></li>
+                <li><a href="#contact">{{ t.nav_contact }}</a></li>
+            </ul>
+        </nav>
+
+        <!-- Language switcher — server-side links, JS enhances to client-side -->
+        <div class="lang-switcher" id="lang-switcher">
+            {% for code, name in available_langs.items() %}
+            <a href="{{ url_for('set_lang', lang_code=code) }}"
+               class="lang-btn {% if code == lang %}active{% endif %}"
+               data-lang="{{ code }}">
+                {{ code.upper() }}
+            </a>
+            {% endfor %}
+        </div>
+
+    </div>
+</header>

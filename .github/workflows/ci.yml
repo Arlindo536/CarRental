@@ -1,0 +1,32 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  lint-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Check Flask app imports
+        run: python -c "import app; print('app.py imports OK')"
+
+      - name: Check translations are valid JSON
+        run: |
+          for f in translations/*.json; do
+            python -c "import json, sys; json.load(open('$f'))" \
+              && echo "$f OK" \
+              || (echo "$f INVALID" && exit 1)
+          done
